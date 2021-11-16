@@ -3,21 +3,44 @@ const fs = require('fs').promises;
 const contactsOperation = require('./db')
 
 // const contactsOperation = require('db/contacts.json')
-const invokeAction = async ({ action, id, data }) => {
+const invokeAction = async ({ action, id, name, email, phone }) => {
     
      switch (action) {
 
-        case "getAll":
-            const contacts = await contactsOperation.getAll()
+        case "get":
+             const contacts = await contactsOperation.listContacts()
             console.log(contacts)
             break;
         
-        case "add":
-            await fs.appendFile(contactsOperation, data);
+         case "add":
+             const newData = await contactsOperation.addContact(name, email, phone)
+             console.log(newData)
             break;
         
-        case "replace":
-            await fs.writeFile(contactsOperation, data);
+         case "getById":
+             const contact = await contactsOperation.getContactById(id);
+             if (!contact) {
+                 throw new Error(`Contact with ${id} not found`)
+             }
+             console.log(contact)
+             break;
+         
+          case "remove":
+           
+            //  const contact = await contactsOperation.getContactById(id);
+            //  if (!contact) {
+            //      throw new Error(`Contact with ${id} not found`)
+            //  }
+            //  console.log(contact)
+             break;
+         
+          case "update":
+           
+             const updateContact = await contactsOperation.updateById(name, email, phone, id);
+             if (!updateContact) {
+                 throw new Error(`Contact with ${id} not found`)
+             }
+             console.log(updateContact)
             break;
     
         default:
@@ -25,8 +48,19 @@ const invokeAction = async ({ action, id, data }) => {
             break;
     }
 }
+const id = "c6f61e5e-434c-4c24-afcb-0fdfb320eea2";
+const newData = {
+name: "Baba Galamaga", email:"babagalamaga.ante@vestibul.co.uk", phone: "(007) 010-0031"
+}
+const updateData = {
+name: "Baba Gugagaga", email:"babugagaga.ante@vestibul.co.uk", phone: "(007) 011-0131"
+}
+// invokeAction({ action: "getAll", })
+// invokeAction({ action: "getContactById", id })
+// invokeAction({ action: "add", name: newData.name, email: newData.email, phone: newData.phone})
+// invokeAction({ action: "remove", id })
+invokeAction({ action: "update", name: updateData.name, email: updateData.email, phone: updateData.phone, id})
 
-invokeAction({action: "getAll", })
 // const contactsOperation = async (contactsPath, action = "read", data = "") => {
 //     switch (action) {
 

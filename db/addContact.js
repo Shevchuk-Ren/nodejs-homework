@@ -1,7 +1,23 @@
+const { v4: uuidv4 } = require('uuid');
 const fs = require('fs').promises;
-console.log(__dirname, `ditr`)
-const add = async(data) => {
-    const addContacts = await fs.appendFile(`${__dirname}/contacts.json`, data);
-    return addContacts;
+const listContacts = require('./listContacts');
+
+const contactsPath = require('./contactPath')
+
+
+
+
+async function addContact(name, email, phone) {
+    const contacts = await listContacts();
+    const newObjContact = {
+        "id": uuidv4(),
+        "name": name,
+        "email": email,
+        "phone": phone
+    };
+    contacts.push(newObjContact);
+    await fs.writeFile(contactsPath, JSON.stringify(contacts));
+    return newObjContact;
 }
-module.exports = add;
+
+module.exports = addContact;
