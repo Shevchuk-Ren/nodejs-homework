@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs').promises;
 const listContacts = require('./listContacts');
-
 const contactsPath = require('./contactPath')
 
 

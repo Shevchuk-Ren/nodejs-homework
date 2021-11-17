@@ -1,25 +1,22 @@
-const listContacts = require('./listContacts');
 const fs = require('fs').promises;
+const listContacts = require('./listContacts');
 
 
 const contactsPath = require('./contactPath')
 
 async function updateById(name, email, phone, contactId) {
     const contacts = await listContacts();
-   
-    const result = contacts.findIndex(contact => contact.id === contactId);
+    const index = contacts.findIndex(contact => contact.id === contactId);
 
-   
- 
-    if (result === -1) {
+    if (index === -1) {
         return null;
     };
-     console.log(result)
-    contacts[result] = {
-      name, email, phone, contactId
+   
+    contacts[index] = {
+     id: contactId, name, email, phone, 
     }
     await fs.writeFile(contactsPath, JSON.stringify(contacts));
-    return contacts[result]
+    return contacts[index]
 }
 
 module.exports = updateById;
