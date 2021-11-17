@@ -6,7 +6,7 @@ const contactsPath = require('./contactPath')
 
 async function updateById(name, email, phone, contactId) {
     const contacts = await listContacts();
-    const index = contacts.findIndex(contact => contact.id === contactId);
+    const index = contacts.findIndex(contact => contact.id.toString() === contactId);
 
     if (index === -1) {
         return null;

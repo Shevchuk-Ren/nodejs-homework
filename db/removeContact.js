@@ -10,9 +10,10 @@ async function removeContact(contactId) {
     if (index === -1) {
         return null;
     };
+
     const newContacts = contacts.filter((_, idx) => idx !== index);
-    // const removeContact = contacts.splice(index, 0);
     await fs.writeFile(contactsPath, JSON.stringify(newContacts));
+    
     return contacts[index];
 }
 

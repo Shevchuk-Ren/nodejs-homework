@@ -6,9 +6,6 @@ const { program } = require('commander');
 program.version('0.0.1');
 
 
-
-
-
 const invokeAction = async ({ action, id, name, email, phone }) => {
     
      switch (action) {
@@ -67,18 +64,5 @@ program
     .parse(process.argv);
 const option = program.opts();
 
-// const id = 5;
-// const newData = {
-// name: "Baba Galamaga", email:"babagalamaga.ante@vestibul.co.uk", phone: "(007) 010-0031"
-// }
-// const updateData = {
-// name: "Baba Gugagaga", email:"babugagaga.ante@vestibul.co.uk", phone: "(007) 011-0131"
-// }
-// invokeAction({ action: "list", })
-// invokeAction({ action: "getById", id })
-// invokeAction({ action: "add", name: newData.name, email: newData.email, phone: newData.phone})
-
-// invokeAction({ action: "update", name: updateData.name, email: updateData.email, phone: updateData.phone, id})
-// invokeAction({ action: "remove", id })
 
 invokeAction(option);
